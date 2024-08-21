@@ -133,3 +133,26 @@ ggplot(data = lizards, aes(y = fct_infreq(common_name))) +
 
 ```
 
+```{r}
+ggplot(lizards, aes(x = total_length, y =weight)) + 
+  geom_point(size = 3.5) +
+  scale_x_continuous(breaks = c(0, 250, 500),
+                     limits = c(0, 500)) +
+  scale_y_continuous(breaks = seq(from = 0, to = 70, by = 10),
+                     limits = c(0, 70)) +
+  theme_light()
+  
+```
+
+```{r}
+lizards_count <- lizards %>% 
+  mutate(date = lubridate::mdy(date)) %>% 
+  count(date)
+ 
+ggplot(lizards_count, aes(x = date, y = n)) + 
+  geom_line() + 
+  scale_x_date(breaks = scales::breaks_width("3 years"),
+               labels = scales::label_date("'%y"))
+  
+```
+
